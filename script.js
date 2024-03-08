@@ -33,13 +33,16 @@ peopleInput.addEventListener("blur", () =>
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
-    buttons.forEach((btn) => {
-      btn.classList.remove("btn-clicked");
-    });
-    button.classList.add("btn-clicked");
-
-    tipPercentage = parseFloat(button.value);
-
+    if (button.classList.contains("btn-clicked")) {
+      button.classList.remove("btn-clicked");
+      tipPercentage = 0;
+    } else {
+      buttons.forEach((btn) => {
+        btn.classList.remove("btn-clicked");
+      });
+      button.classList.add("btn-clicked");
+      tipPercentage = button.value;
+    }
     calculateTip();
   });
 });
