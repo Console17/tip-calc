@@ -5,6 +5,7 @@ const peopleError = document.querySelector(".people-error");
 const tipAmount = document.querySelector(".tip-amount");
 const totalAmount = document.querySelector(".total-amount");
 const buttons = document.querySelectorAll(".tip-btn");
+const customTip = document.querySelector(".custom-tip");
 
 let tipPercentage = 0;
 
@@ -33,9 +34,7 @@ peopleInput.addEventListener("blur", () =>
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
     buttons.forEach((btn) => {
-      if (btn !== button) {
-        btn.classList.remove("btn-clicked");
-      }
+      btn.classList.remove("btn-clicked");
     });
     button.classList.add("btn-clicked");
 
@@ -45,9 +44,14 @@ buttons.forEach((button) => {
   });
 });
 
+customTip.addEventListener("input", () => {
+  tipPercentage = customTip.value / 100;
+  calculateTip();
+});
+
 function calculateTip() {
-  const billValue = parseFloat(billInput.value);
-  const peopleValue = parseFloat(peopleInput.value);
+  const billValue = billInput.value;
+  const peopleValue = peopleInput.value;
 
   if (!isNaN(billValue) && !isNaN(peopleValue) && peopleValue > 0) {
     const tipPerPerson = (billValue * tipPercentage) / peopleValue;
